@@ -43,4 +43,10 @@ php artisan sail:install
 > Sail scaffolding installed successfully.
 
 
+## Laravel Sailを立ち上げる
 
+- Dockerを起動している状態で、下記のコマンドを実行し、Sailが立ち上がるかを確認
+
+```sh
+./vendor/bin/sail up
+```
