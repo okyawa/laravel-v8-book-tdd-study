@@ -50,3 +50,48 @@ php artisan sail:install
 ```sh
 ./vendor/bin/sail up
 ```
+
+
+## Makefileの設置
+
+- Docker関連のコマンドが簡単に打てるように、Makefileに使いそうなコマンドを記載
+
+## Makefile内のコマンドでよく使うもの
+
+### docker-composeの起動
+
+```sh
+make up
+```
+
+### docker-composerの停止
+
+```sh
+make down
+```
+
+### dockerコンテナ内のシェルに入る
+
+```sh
+make shell
+```
+
+### mysqlに入る
+
+```sh
+make mysql
+```
+
+### テストの実行
+
+#### テスト全体を実行
+
+```sh
+make test
+```
+
+#### 特定のテストファイルのみ実行
+
+```sh
+make test path=テストファイルのパス
+```
