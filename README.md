@@ -10,6 +10,11 @@
 
 # 0からの環境構築
 
+## ローカル環境にDocker Desktopをインストール
+
+- `Docker Desktop` のアプリをローカル環境にダウンロード
+  - [Get Started with Docker - Docker](https://www.docker.com/get-started)
+- `Docker Desktop` をローカル環境にインストール完了後、 `Docker` アプリは起動した状態にしておく
 
 ## Laravel のプロジェクト作成
 
