@@ -96,6 +96,12 @@ make mysql
 make test
 ```
 
+- テストの実行に関しては、PHPUnitを叩くよりもartisanコマンドのテスト実行を使った方が、結果が見やすい
+
+```sh
+php artisan test
+```
+
 #### 特定のテストファイルのみ実行
 
 ```sh
