@@ -145,4 +145,42 @@ class ReportTest extends TestCase
         $response = $this->delete('api/reports/1');
         $response->assertStatus(200);
     }
+
+    /**
+     * 1つのテストメソッドに検証は1つが原則
+     *
+     * リスト 11.2.6.1 複数の検証を記入する例
+     *
+     * 1つのテストに複数の検証をまとめて記述することも可能だが、
+     * テストが失敗したときに、どの検証が失敗したのかが分かりにくくなる。
+     *
+     * 原則
+     * 1. テストメソッドに何を検証するテストなのかが明確に分かる名前を付ける
+     * 2. そのテストメソッドの名前で表現された検証を1つ書く
+     *
+     * @test
+     */
+    public function すべてのエンドポイントへアクセスできる(): void
+    {
+        $response = $this->get('api/customers');
+        $response->assertStatus(200);
+        $response = $this->post('api/customers');
+        $response->assertStatus(200);
+        $response = $this->get('api/customers/1');
+        $response->assertStatus(200);
+        $response = $this->PUT('api/customers/1');
+        $response->assertStatus(200);
+        $response = $this->delete('api/customers/1');
+        $response->assertStatus(200);
+        $response = $this->get('api/reports');
+        $response->assertStatus(200);
+        $response = $this->post('api/reports');
+        $response->assertStatus(200);
+        $response = $this->get('api/reports/1');
+        $response->assertStatus(200);
+        $response = $this->put('api/reports/1');
+        $response->assertStatus(200);
+        $response = $this->delete('api/reports/1');
+        $response->assertStatus(200);
+    }
 }
