@@ -55,11 +55,94 @@ class ReportTest extends TestCase
      *
      * @test
      */
-    public function api_customerにGETリクエストでアクセスできる(): void
+    public function api_customersにGETリクエストでアクセスできる(): void
     {
         // 後から「実行」部分を記述
         $response = $this->get('api/customers');
         // 先に「検証」部分を記述
+        $response->assertStatus(200);
+    }
+
+    /**
+     * リスト 11.2.5.1
+     *
+     * @test
+     */
+    public function api_customersにPOSTメソッドでアクセスできる(): void
+    {
+        $response = $this->post('api/customers');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_customers_customer_idにGETメソッドでアクセスできる(): void
+    {
+        $response = $this->get('api/customers/1');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_customers_customer_idにPUTメソッドでアクセスできる(): void
+    {
+        $response = $this->PUT('api/customers/1');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_customers_customer_idにDELETEメソッドでアクセスできる(): void
+    {
+        $response = $this->delete('api/customers/1');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_reportsにGETメソッドでアクセスできる(): void
+    {
+        $response = $this->get('api/reports');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_reportsにPOSTメソッドでアクセスできる(): void
+    {
+        $response = $this->post('api/reports');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_reports_report_idにGETメソッドでアクセスできる(): void
+    {
+        $response = $this->get('api/reports/1');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_reports_report_idにPUTメソッドでアクセスできる(): void
+    {
+        $response = $this->put('api/reports/1');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_reports_report_idにDELETEメソッドでアクセスできる(): void
+    {
+        $response = $this->delete('api/reports/1');
         $response->assertStatus(200);
     }
 }

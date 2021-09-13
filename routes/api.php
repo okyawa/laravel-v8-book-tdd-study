@@ -22,3 +22,17 @@ use Illuminate\Support\Facades\Route;
  * 1つ目のTodoは完了。
  */
 Route::get('customers', function () {});
+
+/**
+ * リスト 11.2.5.3
+ * 2つ目以降のTodoも同様に、ステータスコードを返すだけの最低限の状態で実装する。
+ */
+Route::post('customers', function () {});
+Route::get('customers/{customer_id}', function () {});
+Route::put('customers/{customer_id}', function () {});
+Route::delete('customers/{customer_id}', function () {});
+Route::get('reports', function() {});
+Route::post('reports', function() {});
+Route::get('reports/{report_id}', function() {});
+Route::put('reports/{report_id}', function() {});
+Route::delete('reports/{report_id}', function() {});
