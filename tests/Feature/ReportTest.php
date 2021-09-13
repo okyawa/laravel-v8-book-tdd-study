@@ -11,6 +11,8 @@ use Tests\TestCase;
 /**
  * このファイルの生成コマンド
  * $ php artisan make:test ReportTest
+ *
+ * リスト 11.2.7.1 実装後のテスト
  */
 class ReportTest extends TestCase
 {

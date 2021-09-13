@@ -26,6 +26,8 @@ Route::get('customers', function () {});
 /**
  * リスト 11.2.5.3
  * 2つ目以降のTodoも同様に、ステータスコードを返すだけの最低限の状態で実装する。
+ *
+ * リスト 11.2.7.2
  */
 Route::post('customers', function () {});
 Route::get('customers/{customer_id}', function () {});
