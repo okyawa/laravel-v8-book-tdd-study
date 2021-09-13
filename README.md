@@ -51,6 +51,7 @@ php artisan sail:install
 ## Laravel Sailを立ち上げる
 
 - Dockerを起動している状態で、下記のコマンドを実行し、Sailが立ち上がるかを確認
+- `Ctrl` + `c` でキャンセルして起動終了
 
 ```sh
 ./vendor/bin/sail up
@@ -99,4 +100,15 @@ make test
 
 ```sh
 make test path=テストファイルのパス
+```
+
+
+## 不要ファイルの削除
+
+- プロジェクト作成時に自動生成されるファイルのうち、今回の実装で利用しないものを削除
+
+```sh
+rm -rf tests/Feature/ExampleTest.php
+rm -rf tests/Unit/ExampleTest.php
+rm -rf database/migrations/*
 ```
