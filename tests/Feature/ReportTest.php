@@ -15,6 +15,24 @@ use Tests\TestCase;
 class ReportTest extends TestCase
 {
     /**
+     * 11-2-2: Todoリストを作成する
+     *
+     * APIの各エンドポイントに指定メソッドでアクセス可能にする実装から開始。
+     * 最初のTodoリストは、下記のようなものになる。
+     *
+     * - [ ] api/customersにGETメソッドでアクセスできる
+     * - [ ] api/customersにPOSTメソッドでアクセスできる
+     * - [ ] api/customers/{customer_id}にGETメソッドでアクセスできる
+     * - [ ] api/customers/{customer_id}にPUTメソッドでアクセスできる
+     * - [ ] api/customers/{customer_id}にDELETEメソッドでアクセスできる
+     * - [ ] api/reportsにGETメソッドでアクセスできる
+     * - [ ] api/reportsにPOSTメソッドでアクセスできる
+     * - [ ] api/reports/{report_id}にGETメソッドでアクセスできる
+     * - [ ] api/reports/{report_id}にPUTメソッドでアクセスできる
+     * - [ ] api/reports/{report_id}にDELETEメソッドでアクセスできる
+     */
+
+    /**
      * リスト 11.2.2.3
      * Todoリスト項目をそのままメソッド名として、コード例に示すメソッドを追加
      *
