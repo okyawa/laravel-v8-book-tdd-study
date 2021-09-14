@@ -118,3 +118,57 @@ rm -rf tests/Feature/ExampleTest.php
 rm -rf tests/Unit/ExampleTest.php
 rm -rf database/migrations/*
 ```
+
+
+## docker-compose.ymlにデータベーステスト用のMySQLを追加
+
+- Laravel Sailで生成されるMySQLでは、データベースの追加ができないため、新たにMySQLのDockerコンテナを起動するように `docker-compose.yml` へ追記
+- `services:` の中に、 `mysql.test` を追加
+
+```yml
+services:
+    mysql.test:
+        image: 'mysql:8.0'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        networks:
+            - sail
+```
+
+
+## データベーステスト用のMySQLに入る
+
+
+### テスト用MySQLのDockerコンテナに入る
+
+```sh
+make mysql-test-shell
+```
+
+もしくは
+
+```sh
+# テスト用MySQLのコンテナ名を確認
+make ps
+# テスト用MySQLのコンテナ名を指定して接続
+docker exec -it {テストのdockerコンテナ名} bash
+```
+
+### テスト用MySQLのDockerコンテナ内からMySQLに入る
+
+- 入力後に聞かれるパスワードは `.env` に記載しているパスワード
+
+```sh
+mysql -h 127.0.0.1 -P 3306 -u root -p
+```
+
+### データベーステスト用のデータベースを作成
+
+```sql
+create database test_database;
+```
+
