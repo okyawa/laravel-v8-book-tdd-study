@@ -172,3 +172,22 @@ mysql -h 127.0.0.1 -P 3306 -u root -p
 create database test_database;
 ```
 
+
+## モデルクラスにIDEヘルパーでphpDocsを付与
+
+- Laravel IDE Helper Generator は、データベースに接続して、テーブル構造に応じたphpDocsを自動生成してくれる
+- IDEでEloquentモデルのプロパティやリレーションが補完されるようになり、開発効率が飛躍的に向上
+
+### doctrine/dbal と barryvdh/laravel-ide-helper のインストール
+
+- リスト 11.3.2.8
+```sh
+composer require "doctrine/dbal" "barryvdh/laravel-ide-helper"
+```
+
+### ide-helper:models の実行
+
+- リスト 11.3.2.9
+```sh
+php artisan ide-helper:models -W -R
+```

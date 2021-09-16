@@ -6,6 +6,8 @@ use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
+ * リスト 11.3.2.12
+ *
  * このファイルの生成コマンド (※Eloquentモデル生成時に、MigrationとFactoryのファイルも同時に生成)
  * $ php artisan make:model Customer -f -m
  */
@@ -26,7 +28,7 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->company,
         ];
     }
 }
