@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Schema;
  *
  * このファイルの生成コマンド (※Eloquentモデル生成時に、MigrationとFactoryのファイルも同時に生成)
  * $ php artisan make:model Customer -f -m
+ *
+ * 未処理のマイグレーションをすべて実行
+ * $ php artisan migrate
+ * データベースを指定し、未処理のマイグレーションをすべて実行
+ * $ php artisan migrate --database=test_database;
  */
 class CreateCustomersTable extends Migration
 {

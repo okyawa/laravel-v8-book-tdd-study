@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Schema;
  *
  * このファイルの生成コマンド (※Eloquentモデル生成時にMigrationとFactoryのファイルも同時に生成)
  * $ php artisan make:model Report -f -m
+ *
+ * データベースを指定し、未処理のマイグレーションをすべて実行
+ * $ php artisan migrate --database=test_database;
  */
 class CreateReportsTable extends Migration
 {
