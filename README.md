@@ -191,3 +191,18 @@ composer require "doctrine/dbal" "barryvdh/laravel-ide-helper"
 ```sh
 php artisan ide-helper:models -W -R
 ```
+
+#### PHPDocsにモデル定義を書き込まない形式
+
+- `--nowrite` オプションを付けてコマンド実行後、rootディレクトリにIDE用補完用の `_ide_helper_models.php` が生成される
+```sh
+php artisan ide-helper:model --nowrite
+```
+
+- `.gitignore` に追加
+```
+# ide-helper
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+````
