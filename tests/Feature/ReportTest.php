@@ -17,6 +17,27 @@ use Tests\TestCase;
 class ReportTest extends TestCase
 {
     /**
+     * リスト 11.4.11: RefreshDatabaseトレイトを使ってテスト用データベースのマイグレーション(初期化)
+     *
+     * 用意したマイグレーションがテスト実行時に自動で呼ばれるようになる
+     */
+    use RefreshDatabase;
+
+    /**
+     * リスト 11.4.1.2: setUpメソッド内でシーダーを実行
+     *
+     * 初期データの投入には、setUpメソッド内でartisanコマンドを使ってdb:seedコマンドを呼び出す。
+     * 用意したテスト用データシーダークラスを--classで指定する。
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('db:seed', ['--class' => 'TestDataSeeder']);
+    }
+
+    /**
      * 11-2-2: Todoリストを作成する
      *
      * APIの各エンドポイントに指定メソッドでアクセス可能にする実装から開始。
