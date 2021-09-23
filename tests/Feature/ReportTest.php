@@ -44,6 +44,9 @@ class ReportTest extends TestCase
      * 最初のTodoリストは、下記のようなものになる。
      *
      * - [ ] api/customersにGETメソッドでアクセスできる
+     *     - [ ] api/customersにGETメソッドでアクセスするとJSONが返却される
+     *     - [ ] api/customersにGETメソッド取得できる顧客情報のJSON形式は要求通りである
+     *     - [ ] api/customersにGETメソッドで返却される顧客情報は2件である
      * - [ ] api/customersにPOSTメソッドでアクセスできる
      * - [ ] api/customers/{customer_id}にGETメソッドでアクセスできる
      * - [ ] api/customers/{customer_id}にPUTメソッドでアクセスできる
@@ -84,6 +87,19 @@ class ReportTest extends TestCase
         $response = $this->get('api/customers');
         // 先に「検証」部分を記述
         $response->assertStatus(200);
+    }
+
+    /**
+     * リスト11.4.2.1 データベースが絡むテスト
+     * レスポンスがJSONであることを確かめるテストを先に記述し、
+     * テストを追加したら直ぐに実行して失敗することを確認する
+     *
+     * @test
+     */
+    public function api_customersにGETメソッドでアクセスするとJSONが返却される(): void
+    {
+        $response = $this->get('api/customers');
+        $this->assertThat($response->content(), $this->isJson());
     }
 
     /**
