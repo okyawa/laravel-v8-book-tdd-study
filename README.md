@@ -120,56 +120,46 @@ rm -rf database/migrations/*
 ```
 
 
-## docker-compose.ymlにデータベーステスト用のMySQLを追加
+## データベーステスト用のデータベースを作成
 
-- Laravel Sailで生成されるMySQLでは、データベースの追加ができないため、新たにMySQLのDockerコンテナを起動するように `docker-compose.yml` へ追記
-- `services:` の中に、 `mysql.test` を追加
+- sailコマンドで入るMySQLではDBを作成できないため、MySQLのdockerコンテナに入り、rootでMySQLに入ることでDB作成
 
-```yml
-services:
-    mysql.test:
-        image: 'mysql:8.0'
-        environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_DATABASE: '${DB_DATABASE}'
-            MYSQL_USER: '${DB_USERNAME}'
-            MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-        networks:
-            - sail
-```
+### MySQLのコンテナに入る
 
-
-## データベーステスト用のMySQLに入る
-
-
-### テスト用MySQLのDockerコンテナに入る
-
+- `docker ps` コマンドでMySQLコンテナの名前を調べる
 ```sh
-make mysql-test-shell
+docker ps
 ```
 
-もしくは
+> CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                    PORTS                                                  NAMES
+> f920d52e098a   sail-8.0/app   "start-container"        17 minutes ago   Up 17 minutes             0.0.0.0:80->80/tcp, :::80->80/tcp, 8000/tcp            laravel-v8-book-tdd-study_laravel.test_1
+> 9760b31515b7   mysql:8.0      "docker-entrypoint.s…"   17 minutes ago   Up 17 minutes (healthy)   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   laravel-v8-book-tdd-study_mysql_1
+> 789bc0fabe0c   mysql:8.0      "docker-entrypoint.s…"   17 minutes ago   Up 17 minutes             3306/tcp, 33060/tcp                                    laravel-v8-book-tdd-study_mysql.test_1
 
+- 調べたMySQLコンテナ名を使って、シェルに入る
 ```sh
-# テスト用MySQLのコンテナ名を確認
-make ps
-# テスト用MySQLのコンテナ名を指定して接続
-docker exec -it {テストのdockerコンテナ名} bash
+docker exec -it laravel-v8-book-tdd-study_mysql_1 bash
 ```
 
-### テスト用MySQLのDockerコンテナ内からMySQLに入る
+### MySQLにrootで入る
 
-- 入力後に聞かれるパスワードは `.env` に記載しているパスワード
-
+- パスワードは `.env` に記載しているパスワード値
 ```sh
-mysql -h 127.0.0.1 -P 3306 -u root -p
+mysql -u root -p
 ```
 
-### データベーステスト用のデータベースを作成
+### テスト実行用のデータベースを作成
 
+- `test_database` の名前でデータベースを作成
 ```sql
 create database test_database;
+```
+
+### 追加したデータベースの権限設定
+
+- 作成した `test_database` のデータベースを `sail` ユーザーが使えるようにする
+```sql
+GRANT ALL ON test_database.* TO 'sail';
 ```
 
 
