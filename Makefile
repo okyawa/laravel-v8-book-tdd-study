@@ -66,16 +66,6 @@ mysql:
 	./vendor/bin/sail mysql
 .PHONY: mysql
 
-# ユニットテスト用のMySQLのコンテナに接続
-mysql-test-shell:
-	docker exec -it laravel-v8-book-tdd-study_mysql.test_1 bash
-.PHONY: mysql-test-shell
-
-# ユニットテスト用のMySQLコンテナ内からMySQLに接続 (※入力後に聞かれるパスワードは .env に記載しているパスワード)
-mysql-connect:
-	mysql -h 127.0.0.1 -P 3306 -u root -p
-.PHONY: mysql-connect
-
 # 使っていないDockerイメージを削除
 prune:
 	docker image prune
