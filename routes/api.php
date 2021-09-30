@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,20 @@ Route::delete('reports/{report_id}', function() {});
  * そこで、どう考えても間違いようのない程単純な実装 (ここでは空のJSONを返すだけ) で、
  * 一旦意図する状態を完成させ、テスト側に間違いがないかを先に確認する。
  */
-Route::get('customers', function () {
-    return response()->json();
+// route::get('customers', function () {
+//     return response()->json();
+// });
+
+/**
+ * 11-4-4 最初のリファクタリング
+ *
+ * 仮実装でテストが成功したところで、テストが成功し続けることを確認しながら、
+ * リファクタリングを続ける。
+ * 実際に\App\Customerモデルから全ての結果を取得し返却する実装にリファクタリングする。
+ *
+ * リファクタリングが済めばテストを再実行して、テストが失敗しないことを確認する。
+ * 既に成功するテストが存在することで、その後のリファクタリング機能が損なわれないことを担保できる。
+ */
+route::get('customers', function () {
+    return response()->json(Customer::query()->get());
 });
