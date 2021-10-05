@@ -43,19 +43,19 @@ class ReportTest extends TestCase
      * APIの各エンドポイントに指定メソッドでアクセス可能にする実装から開始。
      * 最初のTodoリストは、下記のようなものになる。
      *
-     * - [ ] api/customersにGETメソッドでアクセスできる
-     *     - [ ] api/customersにGETメソッドでアクセスするとJSONが返却される
-     *     - [ ] api/customersにGETメソッド取得できる顧客情報のJSON形式は要求通りである
+     * - [x] api/customersにGETメソッドでアクセスできる
+     *     - [x] api/customersにGETメソッドでアクセスするとJSONが返却される
+     *     - [x] api/customersにGETメソッド取得できる顧客情報のJSON形式は要求通りである
      *     - [ ] api/customersにGETメソッドで返却される顧客情報は2件である
-     * - [ ] api/customersにPOSTメソッドでアクセスできる
-     * - [ ] api/customers/{customer_id}にGETメソッドでアクセスできる
-     * - [ ] api/customers/{customer_id}にPUTメソッドでアクセスできる
-     * - [ ] api/customers/{customer_id}にDELETEメソッドでアクセスできる
-     * - [ ] api/reportsにGETメソッドでアクセスできる
-     * - [ ] api/reportsにPOSTメソッドでアクセスできる
-     * - [ ] api/reports/{report_id}にGETメソッドでアクセスできる
-     * - [ ] api/reports/{report_id}にPUTメソッドでアクセスできる
-     * - [ ] api/reports/{report_id}にDELETEメソッドでアクセスできる
+     * - [x] api/customersにPOSTメソッドでアクセスできる
+     * - [x] api/customers/{customer_id}にGETメソッドでアクセスできる
+     * - [x] api/customers/{customer_id}にPUTメソッドでアクセスできる
+     * - [x] api/customers/{customer_id}にDELETEメソッドでアクセスできる
+     * - [x] api/reportsにGETメソッドでアクセスできる
+     * - [x] api/reportsにPOSTメソッドでアクセスできる
+     * - [x] api/reports/{report_id}にGETメソッドでアクセスできる
+     * - [x] api/reports/{report_id}にPUTメソッドでアクセスできる
+     * - [x] api/reports/{report_id}にDELETEメソッドでアクセスできる
      */
 
     /**
@@ -100,6 +100,19 @@ class ReportTest extends TestCase
     {
         $response = $this->get('api/customers');
         $this->assertThat($response->content(), $this->isJson());
+    }
+
+    /**
+     * リスト 11.4.5.3 JSON形式の確認
+     *
+     * @test
+     */
+    public function api_customerにGETメソッドで取得できる顧客情報のJSON形式は要件通りである()
+    {
+        $response = $this->get('api/customers');
+        $customers = $response->json();
+        $customer = $customers[0];
+        $this->assertSame(['id', 'name'], array_keys($customer));
     }
 
     /**

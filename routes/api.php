@@ -74,6 +74,16 @@ Route::delete('reports/{report_id}', function() {});
  * リファクタリングが済めばテストを再実行して、テストが失敗しないことを確認する。
  * 既に成功するテストが存在することで、その後のリファクタリング機能が損なわれないことを担保できる。
  */
+// route::get('customers', function () {
+//     return response()->json(Customer::query()->get());
+// });
+
+/**
+ * リスト 11.4.5.5 返却する項目を指定
+ */
 route::get('customers', function () {
-    return response()->json(Customer::query()->get());
+    return response()
+        ->json(Customer::query()
+        ->select(['id', 'name'])
+        ->get());
 });
