@@ -46,7 +46,7 @@ class ReportTest extends TestCase
      * - [x] api/customersにGETメソッドでアクセスできる
      *     - [x] api/customersにGETメソッドでアクセスするとJSONが返却される
      *     - [x] api/customersにGETメソッド取得できる顧客情報のJSON形式は要求通りである
-     *     - [ ] api/customersにGETメソッドで返却される顧客情報は2件である
+     *     - [x] api/customersにGETメソッドで返却される顧客情報は2件である
      * - [x] api/customersにPOSTメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にGETメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にPUTメソッドでアクセスできる
@@ -113,6 +113,21 @@ class ReportTest extends TestCase
         $customers = $response->json();
         $customer = $customers[0];
         $this->assertSame(['id', 'name'], array_keys($customer));
+    }
+
+    /**
+     * リスト 11.4.6
+     *
+     * この要件はリスト 11.4.5.5で既に実装済みだが、
+     * 続くリファクタリングがこの要件を壊してしまうことに備えて、
+     * こうした要件に対してもテストを追加
+     *
+     * @test
+     */
+    public function api_customersにGETメソッドでアクセスすると2件の顧客リストが返却される()
+    {
+        $response = $this->get('api/customers');
+        $response->assertJsonCount(2);
     }
 
     /**
