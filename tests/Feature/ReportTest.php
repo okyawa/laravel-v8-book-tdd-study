@@ -48,6 +48,7 @@ class ReportTest extends TestCase
      *     - [x] api/customersにGETメソッド取得できる顧客情報のJSON形式は要求通りである
      *     - [x] api/customersにGETメソッドで返却される顧客情報は2件である
      * - [x] api/customersにPOSTメソッドでアクセスできる
+     *     - [ ] api/customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される
      * - [x] api/customers/{customer_id}にGETメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にPUTメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にDELETEメソッドでアクセスできる
@@ -249,5 +250,21 @@ class ReportTest extends TestCase
         $response->assertStatus(200);
         $response = $this->delete('api/reports/1');
         $response->assertStatus(200);
+    }
+
+    /**
+     * リスト 11.4.7
+     *
+     * @test
+     */
+    public function api_customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される(): void
+    {
+        $params = [
+            'name' => '顧客名',
+        ];
+        // $this->postJson()メソッドは、第2引数で指定する配列をJSON形式にしてPOSTするもの
+        $this->postJson('api/customers', $params);
+        // 実際にデータを追加できているかを検証
+        $this->assertDatabaseHas('customers', $params);
     }
 }

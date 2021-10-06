@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
  *
  * リスト 11.2.7.2
  */
-Route::post('customers', function () {});
+// Route::post('customers', function () {});
 Route::get('customers/{customer_id}', function () {});
 Route::put('customers/{customer_id}', function () {});
 Route::delete('customers/{customer_id}', function () {});
@@ -86,4 +86,13 @@ route::get('customers', function () {
         ->json(Customer::query()
         ->select(['id', 'name'])
         ->get());
+});
+
+/**
+ * リスト 11.4.7.3 データの保存を実装
+ */
+Route::post('customers', function (Request $request) {
+    $customer = new Customer();
+    $customer->name = $request->json('name');
+    $customer->save();
 });
