@@ -6,6 +6,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 /**
@@ -48,7 +49,9 @@ class ReportTest extends TestCase
      *     - [x] api/customersにGETメソッド取得できる顧客情報のJSON形式は要求通りである
      *     - [x] api/customersにGETメソッドで返却される顧客情報は2件である
      * - [x] api/customersにPOSTメソッドでアクセスできる
-     *     - [ ] api/customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される
+     *     - [x] api/customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される
+     *     - [ ] POST api/customersにnameが含まれない場合は 422 Unprocessable entityが返却される
+     *     - [ ] POST api/customersにnameが空の場合は 422 Unprocessable entityが返却される
      * - [x] api/customers/{customer_id}にGETメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にPUTメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にDELETEメソッドでアクセスできる
@@ -278,5 +281,29 @@ class ReportTest extends TestCase
         $this->postJson('api/customers', $params);
         // 実際にデータを追加できているかを検証
         $this->assertDatabaseHas('customers', $params);
+    }
+
+    /**
+     * リスト 11.4.9.1 パラメータ不足のテスト
+     *
+     * @test
+     */
+    public function POST_api_customersにnameが含まれない場合は422UnprocessableEntityが返却される()
+    {
+        $params = [];
+        $response = $this->postJson('api/customers', $params);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /**
+     * リスト 11.4.9.5 空のパラメータテストを追加
+     *
+     * @test
+     */
+    public function POST_api_customersにnameが空の場合は422UnprocessableEntityが返却される()
+    {
+        $params = ['name' => ''];
+        $response = $this->postJson('api/customers', $params);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

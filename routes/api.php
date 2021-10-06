@@ -2,6 +2,7 @@
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -91,7 +92,21 @@ route::get('customers', function () {
 /**
  * リスト 11.4.7.3 データの保存を実装
  */
+// Route::post('customers', function (Request $request) {
+//     $customer = new Customer();
+//     $customer->name = $request->json('name');
+//     $customer->save();
+// });
+
+/**
+ * リスト 11.4.9.3 仮実装でバリデーション
+ */
 Route::post('customers', function (Request $request) {
+    // 仮実装
+    if (!$request->json('name')) {
+        return response()
+            ->make('', Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
     $customer = new Customer();
     $customer->name = $request->json('name');
     $customer->save();
