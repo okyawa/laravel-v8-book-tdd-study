@@ -138,7 +138,16 @@ class ReportTest extends TestCase
      */
     public function api_customersにPOSTメソッドでアクセスできる(): void
     {
-        $response = $this->post('api/customers');
+        /**
+         * リスト 11.4.8.2 失敗するテストを修正
+         *
+         * 既存のテストが不十分だと判明した場合はもちろん、
+         * テスト自体を修正することになる。
+         */
+        $params = [
+            'name' => 'customer_name',
+        ];
+        $response = $this->postJson('api/customers', $params);
         $response->assertStatus(200);
     }
 
@@ -232,7 +241,10 @@ class ReportTest extends TestCase
     {
         $response = $this->get('api/customers');
         $response->assertStatus(200);
-        $response = $this->post('api/customers');
+        $params = [
+            'name' => 'customer_name',
+        ];
+        $response = $this->postJson('api/customers', $params);
         $response->assertStatus(200);
         $response = $this->get('api/customers/1');
         $response->assertStatus(200);
