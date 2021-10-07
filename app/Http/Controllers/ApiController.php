@@ -33,8 +33,16 @@ class ApiController extends Controller
          * フレームワークのメソッドとしてカプセル化されているため、複雑な実装出会っても実にシンプルに記述できる。
          * リファクタリングの方向として、フレームワークの標準機能を利用する流れに寄せるのは、
          * 「きれいな実装」に近付ける意味でも、将来の良好なメンテナンス性でも良い戦略といえる。
+         *
+         * リスト 11.5.3.6 エラーメッセージの日本語化
+         *
+         * validateメソッドは第3引数で個別にエラーメッセージを指定できる。
          */
-        $this->validate($request, ['name' => 'required']);
+        $this->validate(
+            $request,
+            ['name' => 'required'],
+            ['name.required' => ':attribute は必須項目です']
+        );
 
         $customer = new Customer();
         $customer->name = $request->json('name');

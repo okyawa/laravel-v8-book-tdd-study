@@ -52,6 +52,7 @@ class ReportTest extends TestCase
      *     - [x] api/customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される
      *     - [x] POST api/customersにnameが含まれない場合は 422 Unprocessable entityが返却される
      *     - [x] POST api/customersにnameが空の場合は 422 Unprocessable entityが返却される
+     *     - [ ] POST api/customersのエラーレスポンスの確認
      * - [x] api/customers/{customer_id}にGETメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にPUTメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にDELETEメソッドでアクセスできる
@@ -288,7 +289,7 @@ class ReportTest extends TestCase
      *
      * @test
      */
-    public function POST_api_customersにnameが含まれない場合は422UnprocessableEntityが返却される()
+    public function POST_api_customersにnameが含まれない場合は422UnprocessableEntityが返却される(): void
     {
         $params = [];
         $response = $this->postJson('api/customers', $params);
@@ -300,10 +301,64 @@ class ReportTest extends TestCase
      *
      * @test
      */
-    public function POST_api_customersにnameが空の場合は422UnprocessableEntityが返却される()
+    public function POST_api_customersにnameが空の場合は422UnprocessableEntityが返却される(): void
     {
         $params = ['name' => ''];
         $response = $this->postJson('api/customers', $params);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /**
+     * リスト 11.5.3.1 分からない箇所は適当に書いてテストを作成
+     */
+    // public function POST_api_customersのエラーレスポンスの確認(): void
+    // {
+    //     $params = ['name' => ''];
+    //     $response = $this->postJson('api/customers', $params);
+    //     // ここが分からない
+    //     $error_response = [];
+    //     $response->assertExactJson($error_response);
+
+    //     /**
+    //      * テストを実行し、エラーメッセージを確認。
+    //      * 下記のリストの通り、massageとerrorsという名前をキーとする配列があり、
+    //      * errorsの中には各POSTパラメータ名をキーとする配列があり、
+    //      * パラメータに対するエラー詳細が配列に格納されている、
+    //      * という構造のエラーレスポンスを返すことが分かる。
+    //      * これを元に期待すべき動作を決めて、テストを記述する。
+    //      */
+    //     /*
+    //     {
+    //         "errors": {
+    //             "name": [
+    //                 "The name field is required."
+    //             ]
+    //         },
+    //         "message": "The given data was invalid."
+    //     }
+    //     */
+    // }
+
+    /**
+     * リスト 11.5.3.4 エラーメッセージを元にテストを修正
+     *
+     * フレームワークの機能が絡む実装に対してテストを記述する場面では、まずは仮の期待値を使って記述し、
+     * テストの失敗内容を確認して本当の期待値に修正するといった方法が有効なケースもある。
+     *
+     * @test
+     */
+    public function POST_api_customersのエラーレスポンスの確認(): void
+    {
+        $params = ['name' => ''];
+        $response = $this->postJson('api/customers', $params);
+        $error_response = [
+            'message' => 'The given data was invalid.',
+            'errors' => [
+                'name' => [
+                    'name は必須項目です',
+                ],
+            ],
+        ];
+        $response->assertExactJson($error_response);
     }
 }
