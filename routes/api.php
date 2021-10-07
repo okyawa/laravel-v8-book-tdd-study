@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -32,14 +33,14 @@ use Illuminate\Support\Facades\Route;
  * リスト 11.2.7.2
  */
 // Route::post('customers', function () {});
-Route::get('customers/{customer_id}', function () {});
-Route::put('customers/{customer_id}', function () {});
-Route::delete('customers/{customer_id}', function () {});
-Route::get('reports', function() {});
-Route::post('reports', function() {});
-Route::get('reports/{report_id}', function() {});
-Route::put('reports/{report_id}', function() {});
-Route::delete('reports/{report_id}', function() {});
+// Route::get('customers/{customer_id}', function () {});
+// Route::put('customers/{customer_id}', function () {});
+// Route::delete('customers/{customer_id}', function () {});
+// Route::get('reports', function() {});
+// Route::post('reports', function() {});
+// Route::get('reports/{report_id}', function() {});
+// Route::put('reports/{report_id}', function() {});
+// Route::delete('reports/{report_id}', function() {});
 
 /**
  * リスト 11.4.3.1 仮実装
@@ -82,12 +83,13 @@ Route::delete('reports/{report_id}', function() {});
 /**
  * リスト 11.4.5.5 返却する項目を指定
  */
-route::get('customers', function () {
-    return response()
-        ->json(Customer::query()
-        ->select(['id', 'name'])
-        ->get());
-});
+// route::get('customers', function () {
+//     return response()->json(
+//         Customer::query()
+//             ->select(['id', 'name'])
+//             ->get()
+//     );
+// });
 
 /**
  * リスト 11.4.7.3 データの保存を実装
@@ -101,13 +103,27 @@ route::get('customers', function () {
 /**
  * リスト 11.4.9.3 仮実装でバリデーション
  */
-Route::post('customers', function (Request $request) {
-    // 仮実装
-    if (!$request->json('name')) {
-        return response()
-            ->make('', Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-    $customer = new Customer();
-    $customer->name = $request->json('name');
-    $customer->save();
-});
+// Route::post('customers', function (Request $request) {
+//     // 仮実装
+//     if (!$request->json('name')) {
+//         return response()
+//             ->make('', Response::HTTP_UNPROCESSABLE_ENTITY);
+//     }
+//     $customer = new Customer();
+//     $customer->name = $request->json('name');
+//     $customer->save();
+// });
+
+/**
+ * リスト 11.5.1.3, 11.5.1.5 作成したコントローラのメソッドを呼ぶ形に変更
+ */
+Route::get('customers', [ApiController::class, 'getCustomers']);
+Route::post('customers', [ApiController::class, 'postCustomers']);
+Route::get('customers/{customer_id}', [ApiController::class, 'getCustomer']);
+Route::put('customers/{customer_id}', [ApiController::class, 'putCustomer']);
+Route::delete('customers/{customer_id}', [ApiController::class, 'deleteCustomer']);
+Route::get('reports', [ApiController::class, 'getReports']);
+Route::post('reports', [ApiController::class, 'postReport']);
+Route::get('reports/{report_id}', [ApiController::class, 'getReport']);
+Route::put('reports/{report_id}', [ApiController::class, 'putReport']);
+Route::delete('reports/{report_id}', [ApiController::class, 'deleteReport']);
