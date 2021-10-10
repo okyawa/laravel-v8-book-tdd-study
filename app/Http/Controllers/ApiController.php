@@ -38,11 +38,22 @@ class ApiController extends Controller
          *
          * validateメソッドは第3引数で個別にエラーメッセージを指定できる。
          */
-        $this->validate(
-            $request,
-            ['name' => 'required'],
-            ['name.required' => ':attribute は必須項目です']
-        );
+        // $this->validate(
+        //     $request,
+        //     ['name' => 'required'],
+        //     ['name.required' => ':attribute は必須項目です']
+        // );
+        /**
+         * リスト 11.5.4.4 個別メッセージ設定部分の削除
+         *
+         * config/app.phpで日本語にlocale指定し、
+         * resources/lang/ja/validation.phpに日本語のバリデーションメッセージを定義したことにより、
+         * validateメソッドの第３引数で指定していたメッセージ部分を消すことができる。
+         *
+         * 個別にエラーメッセージを指定することなく、メッセージを日本語化できる。
+         * 実装もスッキリし、また一歩「きれいな実装」へと近づいた。
+         */
+        $this->validate($request, ['name' => 'required']);
 
         $customer = new Customer();
         $customer->name = $request->json('name');
