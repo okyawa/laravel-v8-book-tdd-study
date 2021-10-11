@@ -131,10 +131,12 @@ rm -rf database/migrations/*
 docker ps
 ```
 
-> CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                    PORTS                                                  NAMES
-> f920d52e098a   sail-8.0/app   "start-container"        17 minutes ago   Up 17 minutes             0.0.0.0:80->80/tcp, :::80->80/tcp, 8000/tcp            laravel-v8-book-tdd-study_laravel.test_1
-> 9760b31515b7   mysql:8.0      "docker-entrypoint.s…"   17 minutes ago   Up 17 minutes (healthy)   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   laravel-v8-book-tdd-study_mysql_1
-> 789bc0fabe0c   mysql:8.0      "docker-entrypoint.s…"   17 minutes ago   Up 17 minutes             3306/tcp, 33060/tcp                                    laravel-v8-book-tdd-study_mysql.test_1
+```
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                    PORTS                                                  NAMES
+f920d52e098a   sail-8.0/app   "start-container"        17 minutes ago   Up 17 minutes             0.0.0.0:80->80/tcp, :::80->80/tcp, 8000/tcp            laravel-v8-book-tdd-study_laravel.test_1
+9760b31515b7   mysql:8.0      "docker-entrypoint.s…"   17 minutes ago   Up 17 minutes (healthy)   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   laravel-v8-book-tdd-study_mysql_1
+789bc0fabe0c   mysql:8.0      "docker-entrypoint.s…"   17 minutes ago   Up 17 minutes             3306/tcp, 33060/tcp                                    laravel-v8-book-tdd-study_mysql.test_1
+```
 
 - 調べたMySQLコンテナ名を使って、シェルに入る
 ```sh
