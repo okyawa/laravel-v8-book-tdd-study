@@ -52,7 +52,7 @@ class ReportTest extends TestCase
      *     - [x] api/customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される
      *     - [x] POST api/customersにnameが含まれない場合は 422 Unprocessable entityが返却される
      *     - [x] POST api/customersにnameが空の場合は 422 Unprocessable entityが返却される
-     *     - [ ] POST api/customersのエラーレスポンスの確認
+     *     - [x] POST api/customersのエラーレスポンスの確認
      * - [x] api/customers/{customer_id}にGETメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にPUTメソッドでアクセスできる
      * - [x] api/customers/{customer_id}にDELETEメソッドでアクセスできる
